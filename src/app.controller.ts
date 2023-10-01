@@ -1,24 +1,29 @@
-import {Controller, Delete, Get, Post} from "@nestjs/common"
+import { Controller, Delete, Get, Post, Put } from "@nestjs/common"
 
 @Controller('report/:type') // Controller decorator now gives the current entity to be a controller
 export class AppController {
   @Get() // This decorator allows the below method to return as GET endpoint
-  getAllIncomeReports() {
+  getAllReports() {
     return [];
   }
 
   @Get(':id') 
-  getAllIncomeReportsById() {
+  getAllReportsById() {
     return {};
   }
 
   @Post()
-  postIncomeReports() {
+  createReport() {
     return 'post ok. status 201'
   }
 
+  @Put(':id')
+  updateReport() {
+    return 'updated';
+  }
+
   @Delete(':id')
-  deleteIncomeReports() {
+  deleteReport() {
     return 'delete ok. status 200'
   }
 }
