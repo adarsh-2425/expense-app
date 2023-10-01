@@ -1,12 +1,9 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import {Controller, Get} from "@nestjs/common"
 
-@Controller()
+@Controller() // This decorator now gives the current entity to be a controller
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get() // This decorator allows the below method to return as GET endpoint
+  getAllIncomeReports() {
+    return []
   }
 }
