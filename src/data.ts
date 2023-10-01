@@ -4,7 +4,7 @@ interface Data {
         source: string;
         amount: number;
         created_at: Date;
-        updated_At: Date;
+        updated_at: Date;
         type: ReportType
     }[];
  }
@@ -21,7 +21,7 @@ interface Data {
             source: 'Salary',
             amount: 7500,
             created_at: new Date(),
-            updated_At: new Date(),
+            updated_at: new Date(),
             type: ReportType.INCOME
         },
         {
@@ -29,7 +29,15 @@ interface Data {
             source: 'Youtube',
             amount: 2500,
             created_at: new Date(),
-            updated_At: new Date(),
+            updated_at: new Date(),
+            type: ReportType.INCOME
+        },
+        {
+            id: 'uuid3',
+            source: 'Food',
+            amount: 500,
+            created_at: new Date(),
+            updated_at: new Date(),
             type: ReportType.EXPENSE
         }
     ],

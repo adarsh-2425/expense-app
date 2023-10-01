@@ -1,5 +1,6 @@
-import { Controller, Delete, Get, Param, Post, Put } from "@nestjs/common"
-import { ReportType, data } from 'src/data'
+import { Controller, Delete, Get, Param, Post, Put, Body } from "@nestjs/common"
+import { ReportType, data } from 'src/data';
+import { v4 as uuid } from 'uuid'
 
 @Controller('report/:type') // Controller decorator now gives the current entity to be a controller
 export class AppController {
@@ -21,8 +22,17 @@ export class AppController {
     };
 
   @Post()
-  createReport() {
-    return 'post ok. status 201'
+  createReport(@Body() { amount, source }: {amount: number, source: string}, @Param('type') type: string) {
+    const newReport = {
+      id: uuid(), // uuid() will generate a random string. installation => npm install uuid @types/uuid => import { v4 as uuid } from 'uuid'
+      source,
+      amount,
+      created_at: new Date(),
+      updated_at: new Date(),
+      type: type === "income" ? ReportType.INCOME : ReportType.EXPENSE
+    }
+    data.report.push(newReport)
+    return newReport;
   }
 
   @Put(':id')
