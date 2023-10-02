@@ -1,13 +1,17 @@
 import { Controller, Delete, Get, Param, Post, Put, Body, HttpCode } from "@nestjs/common"
 import { ReportType, data } from 'src/data';
-import { v4 as uuid } from 'uuid'
+import { v4 as uuid } from 'uuid';
+import { AppService } from "./app.service";
 
 @Controller('report/:type') // Controller decorator now gives the current entity to be a controller
 export class AppController {
+
+  constructor(private readonly appService: AppService){}
+
   @Get() // This decorator allows the below method to return as GET endpoint
   getAllReports(@Param('type') type: string) {
     const reportType = type === "income" ? ReportType.INCOME : ReportType.EXPENSE; // checking the type in parameter. if "income", we assign type INCOME and vice versa
-    return data.report.filter(report => report.type === reportType)
+    return this.appService.getAllReports(reportType);
   }
 
   @Get(':id') 
