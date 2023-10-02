@@ -2,7 +2,7 @@ import { Controller, Delete, Get, Param, Post, Put, Body, HttpCode, ParseUUIDPip
 import { ReportType, data } from 'src/data';
 import { v4 as uuid } from 'uuid';
 import { AppService } from "./app.service";
-import { CreateReportDto } from "./dtos/report.dto";
+import { CreateReportDto, UpdateReportDto } from "./dtos/report.dto";
 
 @Controller('report/:type') // Controller decorator now gives the current entity to be a controller
 export class AppController {
@@ -35,11 +35,11 @@ export class AppController {
   updateReport(
     @Param('type', new ParseEnumPipe(ReportType)) type: string,
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() body: { amount: number, source: string }
+    @Body() body: UpdateReportDto
   ) {
     const reportType = type === "income" ? ReportType.INCOME : ReportType.EXPENSE; // checking the type in parameter. if "income", we assign type INCOME and vice versa
     
-    this.appService.updateReport(reportType, id, body)
+    return this.appService.updateReport(reportType, id, body)
     }
 
   @HttpCode(204) // 204 means No Content, this controller will return 204
