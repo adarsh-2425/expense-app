@@ -2,6 +2,7 @@ import { Controller, Delete, Get, Param, Post, Put, Body, HttpCode, ParseUUIDPip
 import { ReportType, data } from 'src/data';
 import { v4 as uuid } from 'uuid';
 import { AppService } from "./app.service";
+import { CreateReportDto } from "./dtos/report.dto";
 
 @Controller('report/:type') // Controller decorator now gives the current entity to be a controller
 export class AppController {
@@ -24,7 +25,8 @@ export class AppController {
     };
 
   @Post()
-  createReport(@Body() { amount, source }: {amount: number, source: string}, @Param('type') type: string) {
+  createReport(@Body() { amount, source }: CreateReportDto,
+   @Param('type') type: string) {
     const reportType = type === "income" ? ReportType.INCOME : ReportType.EXPENSE;
     return this.appService.createReport(reportType, {amount, source})
   }
